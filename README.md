@@ -33,7 +33,7 @@ To set up the project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/chat-application.git
+   git clone https://github.com/fan-of-stl/chatapp-client.git
    ```
 
 2. Navigate to the project directory:
