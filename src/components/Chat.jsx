@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Chat.css";
@@ -14,10 +13,17 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const chatContainerRef = useRef(null);
   const wsRef = useRef(null);
-  const navigate = useNavigate(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    wsRef.current = new WebSocket("ws://strapi-chat-app-fgb8.onrender.com/ws");
+    // Determine the WebSocket URL based on the environment
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+    const wsUrl =
+      process.env.NODE_ENV === "production"
+        ? `${protocol}://strapi-chat-app-fgb8.onrender.com/ws`
+        : `${protocol}://localhost:1337/ws`;
+
+    wsRef.current = new WebSocket(wsUrl);
 
     wsRef.current.onopen = () => {
       wsRef.current.send(JSON.stringify({ action: "connect", userId }));
@@ -59,7 +65,6 @@ const Chat = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
-    
     navigate("/login");
   };
 
@@ -107,7 +112,6 @@ const Chat = () => {
         </div>
       </div>
 
-      
       <div className="flex justify-end w-full ">
         <button
           className="bg-red-600 rounded-md text-white py-2 px-4 hover:bg-red-700 transition duration-300 me-8 my-2"

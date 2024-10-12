@@ -84,7 +84,7 @@ const Login = () => {
           </form>
           <div className="mt-4 text-center">
             <a href="/register" className="text-blue-500">
-              Create and account? Register
+              Create an account? Register
             </a>
           </div>
         </div>
