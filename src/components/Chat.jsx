@@ -17,7 +17,7 @@ const Chat = () => {
   const navigate = useNavigate(null);
 
   useEffect(() => {
-    wsRef.current = new WebSocket("ws://localhost:1337/ws");
+    wsRef.current = new WebSocket("ws://strapi-chat-app-fgb8.onrender.com/ws");
 
     wsRef.current.onopen = () => {
       wsRef.current.send(JSON.stringify({ action: "connect", userId }));
