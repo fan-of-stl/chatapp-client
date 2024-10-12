@@ -1,44 +1,47 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-  
+
     try {
-      const response = await fetch("https://strapi-chat-app-fgb8.onrender.com/api/auth/local", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: email, 
-          password: password,
-        }),
-      });
-  
+      const response = await fetch(
+        "https://strapi-chat-app-fgb8.onrender.com/api/auth/local",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            identifier: email,
+            password: password,
+          }),
+        }
+      );
+
       if (!response.ok) {
         throw new Error("Invalid email or password");
       }
-  
+
       const data = await response.json();
       const { jwt, user } = data;
-  
+
       localStorage.setItem("jwt", jwt);
-  
+
       console.log("Login successful", user);
 
-      const userId = user.id
-  
-      return navigate(`/chat?userId=${userId}`)
+      const userId = user.id;
+
+      return navigate(`/chat?userId=${userId}`);
     } catch (err) {
       setError("Invalid email or password");
       console.error("Login error:", err.message);
@@ -46,7 +49,7 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div>
       <div className="min-h-screen bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
@@ -83,9 +86,9 @@ const Login = () => {
             </button>
           </form>
           <div className="mt-4 text-center">
-            <a href="/register" className="text-blue-500">
+            <Link to="/register" className="text-blue-500">
               Create an account? Register
-            </a>
+            </Link>
           </div>
         </div>
       </div>
