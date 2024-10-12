@@ -1,0 +1,17 @@
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  @media (max-width: 320px) {
+    .chat-button {
+      width: 50%; 
+    }
+  
+    .chat-input {
+      width: 50%; 
+    }
+  }
